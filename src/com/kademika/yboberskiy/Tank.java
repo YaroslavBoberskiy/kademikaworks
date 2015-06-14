@@ -13,6 +13,7 @@ public class Tank {
     private BattleField bf;
 
     public Tank (ActionField af, BattleField bf) {
+
         this(af, bf, 128, 512, 1);
     }
 
@@ -30,6 +31,10 @@ public class Tank {
 
     public int getY() {
         return y;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     public int getDirection() {
@@ -50,9 +55,6 @@ public class Tank {
         af.processMove(this);
     }
 
-    public void moveRandom () throws Exception {
-    }
-
     public void clean () throws Exception {
 
     }
@@ -66,6 +68,9 @@ public class Tank {
     }
 
     public void moveToQuadrant(int v, int h) throws Exception {
+    }
+
+    public void moveRandom () throws Exception {
     }
 }
 

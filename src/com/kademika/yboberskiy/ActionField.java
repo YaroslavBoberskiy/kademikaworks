@@ -1,6 +1,7 @@
 package com.kademika.yboberskiy;
 
 import javax.swing.*;
+import javax.swing.text.StringContent;
 import java.awt.*;
 
 /**
@@ -13,19 +14,79 @@ public class ActionField extends JPanel {
     private Bullet bullet;
 
     void runTheGame() throws Exception {
-
+        tank.fire();
+        tank.fire();
+        tank.fire();
+        tank.move();
+        tank.turn(3);
+        tank.fire();
+        tank.move();
     }
 
     public void processTurn(Tank tank) throws Exception {
-
+        repaint();
     }
 
     public void processMove(Tank tank) throws Exception {
+        this.tank = tank;
+        int direction = tank.getDirection();
+        int step = 1;
+        int covered = 0;
 
+        // check limits x: 0, 513; y: 0, 513
+
+        if ((direction == 1 && tank.getY() == 0) || (direction == 2 && tank.getY() >= 512) ||
+                (direction == 3 && tank.getX() == 0) || (direction == 4 && tank.getX() >= 512)) {
+            System.out.println("[Illegal move] direction "+direction+"Tank X: "+tank.getX()+"Tank Y: "+tank.getY());
+            return;
+        }
+        tank.turn(direction);
+
+        while (covered < 64) {
+            if (direction == 1) {
+                tank.updateY(-step);
+                System.out.println("[move up] direction: "+direction+ " tankX: "+
+                        tank.getX()+ "tankY: "+tank.getY());
+            } else if (direction == 2) {
+                tank.updateY(step);
+                System.out.println("[move down] direction: "+direction+ " tankX: "+
+                        tank.getX()+ "tankY: "+tank.getY());
+            } else if (direction == 3) {
+                tank.updateX(-step);
+                System.out.println("[move left] direction: "+direction+ " tankX: "+
+                        tank.getX()+ "tankY: "+tank.getY());
+            } else {
+                tank.updateX(step);
+                System.out.println("[move right] direction: "+direction+ " tankX: "+
+                        tank.getX()+ "tankY: "+tank.getY());
+            }
+            covered += step;
+            repaint();
+            Thread.sleep(tank.getSpeed());
+        }
     }
 
     public void processFire(Bullet bullet) throws Exception {
+        this.bullet = bullet;
+        int step = 1;
 
+        while ((bullet.getX() > -14 && bullet.getX() < 590) && (bullet.getY() > -14
+                && bullet.getY() < 590)) {
+            if (bullet.getDirection() == 1) {
+                bullet.updateY(-step);
+            } else if (bullet.getDirection() == 2) {
+                bullet.updateY(step);
+            } else if (bullet.getDirection() == 3) {
+                bullet.updateX(-step);
+            } else {
+                bullet.updateX(step);
+            }
+            if (processInterception()) {
+                bullet.destroy();
+            }
+            repaint();
+            Thread.sleep(bullet.getSpeed());
+        }
     }
 
     boolean processInterception() {
@@ -45,16 +106,18 @@ public class ActionField extends JPanel {
     }
 
     public String getQuadrant (int x, int y) {
-        return y / 64+" "+ x / 64;
+
+        return y / 64+"_"+ x / 64;
     }
 
     public String getQuadrantXY (int v, int h) {
-        return (v - 1) * 64 + " " + (h - 1) * 64;
+
+        return (v - 1) * 64 + "_" + (h - 1) * 64;
     }
 
     public ActionField() throws Exception {
         battleField = new BattleField();
-        tank = new Tank(null);
+        tank = new Tank(this, battleField);
         bullet = new Bullet(-100, -100, -1);
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
