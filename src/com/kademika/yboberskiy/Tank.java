@@ -1,5 +1,7 @@
 package com.kademika.yboberskiy;
 
+import java.util.Random;
+
 /**
  * Created by YB on 11.06.2015.
  */
@@ -14,7 +16,7 @@ public class Tank {
 
     public Tank (ActionField af, BattleField bf) {
 
-        this(af, bf, 128, 512, 1);
+        this(af, bf, 128, 128, 1);
     }
 
     public Tank (ActionField af, BattleField bf, int x, int y, int direction) {
@@ -56,7 +58,25 @@ public class Tank {
     }
 
     public void clean () throws Exception {
+        moveToQuadrant(0, 0);
 
+        for (int i = 0; i < bf.getDimensionX(); i ++) {
+            turn(4);
+            if (bf.scanQuadrant(0, i).equals("B")) {
+                fire();
+            }
+        }
+
+        for (int i = 0; i < bf.getDimensionX(); i ++) {
+            turn(2);
+            for (int j = 0; j < bf.getDimensionY(); j ++) {
+                if (bf.scanQuadrant(j, i).equals("B")) {
+                    fire();
+                }
+            }
+            turn(4);
+            move();
+        }
     }
 
     public void updateX (int x) {
@@ -67,10 +87,47 @@ public class Tank {
         this.y += y;
     }
 
-    public void moveToQuadrant(int v, int h) throws Exception {
+    public void moveToQuadrant(int localY, int localX) throws Exception {
+
+        if (this.x < localX*64) {
+            while (this.x != localX*64) {
+                turn(4);
+                fire();
+                move();
+            }
+        } else {
+            while (this.x != localX*64) {
+                turn(3);
+                fire();
+                move();
+            }
+        }
+
+        if (this.y < localY*64) {
+            while (this.y != localY*64) {
+                turn(2);
+                fire();
+                move();
+            }
+        } else {
+            while (this.y != localY*64) {
+                turn(1);
+                fire();
+                move();
+            }
+        }
     }
 
     public void moveRandom () throws Exception {
+        Random r = new Random();
+        int i;
+        while (true) {
+            i = r.nextInt(5);
+            if (i > 0) {
+                turn(i);
+                move();
+            }
+        }
     }
 }
 

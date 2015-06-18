@@ -8,7 +8,7 @@ public class BattleField {
     private final int BF_HEIGHT = 576;
 
     private String[][] battleField = {
-            { " ", " ", " ", " ", "B", " ", "B", " ", "B"},
+            { " ", "B", " ", "B", "B", " ", "B", " ", "B"},
             { "B", "B", " ", " ", " ", " ", "B", " ", "B" },
             { " ", "B", "B", " ", " ", "B", " ", " ", "B" },
             { "B", "B", "B", "B", " ", " ", "B", "B", "B" },
