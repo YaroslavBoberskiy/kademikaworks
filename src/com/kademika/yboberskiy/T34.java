@@ -3,27 +3,26 @@ package com.kademika.yboberskiy;
 import java.util.Random;
 
 /**
- * Created by YB on 11.06.2015.
+ * Created by YB on 18.06.2015.
  */
-public class Tank {
-    protected int speed = 10;
+public class T34 extends Tank {
+
+    private int speed = 22;
+    private String color;
+    private int crew;
+    private int maxSpeed;
     private int x;
     private int y;
+    private Direction direction;
     private ActionField af;
     private BattleField bf;
-    private Direction direction;
 
-    public Tank (ActionField af, BattleField bf) {
 
-        this(af, bf, 128, 128, Direction.UP);
-    }
-
-    public Tank(ActionField af, BattleField bf, int x, int y, Direction direction) {
-        this.af = af;
-        this.bf = bf;
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
+    public T34 (ActionField af, BattleField bf, String color, int crew, int maxSpeed) {
+        super(af, bf, 64, 0, Direction.RIGHT);
+        this.color = color;
+        this.crew = crew;
+        this.maxSpeed = maxSpeed;
     }
 
     public int getX() {
@@ -144,5 +143,15 @@ public class Tank {
         af.repaint();
     }
 
-}
+    public String getColor() {
+        return color;
+    }
 
+    public int getCrew() {
+        return crew;
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+}
