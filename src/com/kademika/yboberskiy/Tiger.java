@@ -17,11 +17,8 @@ public class Tiger extends Tank {
     private ActionField af;
     private BattleField bf;
 
-    public Tiger (ActionField af, BattleField bf, String color, int crew, int maxSpeed) {
-        super(af, bf, 256, 0, Direction.UP);
-        this.color = color;
-        this.crew = crew;
-        this.maxSpeed = maxSpeed;
+    public Tiger (ActionField af, BattleField bf, int x, int y, Direction direction) {
+        super(af, bf, x, y, Direction.LEFT);
         armor = 1;
     }
 

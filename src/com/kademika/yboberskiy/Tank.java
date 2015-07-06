@@ -15,7 +15,7 @@ public class Tank {
 
     public Tank (ActionField af, BattleField bf) {
 
-        this(af, bf, 128, 128, Direction.UP);
+        this(af, bf, 128, 128, Direction.RIGHT);
     }
 
     public Tank(ActionField af, BattleField bf, int x, int y, Direction direction) {
@@ -48,8 +48,20 @@ public class Tank {
     }
 
     public void fire () throws  Exception {
-        Bullet bullet = new Bullet((x + 25), (y + 25), direction);
-        af.processFire(bullet);
+        if (direction == Direction.UP) {
+            Bullet bullet = new Bullet((x + 25), y, direction);
+            af.processFire(bullet);
+        } else if (direction == Direction.DOWN) {
+            Bullet bullet = new Bullet(x+25, y+64, direction);
+            af.processFire(bullet);
+        } else if (direction == Direction.LEFT) {
+            Bullet bullet = new Bullet(x, y+25, direction);
+            af.processFire(bullet);
+        } else if (direction == Direction.RIGHT) {
+            Bullet bullet = new Bullet(x+64, y+25, direction);
+            af.processFire(bullet);
+        }
+        System.out.println("FIRE");
     }
 
     public void move() throws Exception {
@@ -139,8 +151,8 @@ public class Tank {
     }
 
     public void selfDestroy () {
-        updateX (-100);
-        updateY (-100);
+        updateX (-100*64);
+        updateY (-100*64);
         af.repaint();
     }
 
