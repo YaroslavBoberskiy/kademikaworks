@@ -22,4 +22,11 @@ public class Tiger extends Tank {
         armor = 1;
     }
 
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
 }

@@ -22,7 +22,8 @@ public class ActionField extends JPanel {
         battleField = new BattleField();
         defender = new Tank(this, battleField);
         String location = battleField.getAgressorLocation();
-        agressor = new Tiger(this, battleField, Integer.parseInt(location.split("_")[1]), Integer.parseInt(location.split("_")[0]), Direction.LEFT);
+        //agressor = new Tiger(this, battleField, Integer.parseInt(location.split("_")[1]), Integer.parseInt(location.split("_")[0]), Direction.LEFT);
+        agressor = new Tiger(this, battleField, 512, 128, Direction.LEFT);
         bullet = new Bullet(-100, -100, Direction.NONE);
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
@@ -36,10 +37,10 @@ public class ActionField extends JPanel {
 
     void runTheGame() throws Exception {
 
-        agressor.fire();
-        agressor.fire();
-        agressor.fire();
-        agressor.fire();
+        defender.fire();
+        defender.fire();
+        defender.fire();
+        defender.fire();
 
     }
 
@@ -131,8 +132,13 @@ public class ActionField extends JPanel {
                 return true;
             }
             if (processInterceptionCheck(agressorCoordinates, bulletCoordinates)) {
-                agressor.selfDestroy();
-                return true;
+                int armor = agressor.getArmor();
+                armor --;
+                agressor.setArmor(armor);
+                if (agressor.getArmor() < 0) {
+                    agressor.selfDestroy();
+                    return true;
+                }
             }
             if (processInterceptionCheck(defenderCoordinates, bulletCoordinates)) {
                 defender.selfDestroy();
