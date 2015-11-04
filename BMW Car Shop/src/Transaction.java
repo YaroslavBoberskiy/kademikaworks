@@ -10,6 +10,8 @@ public class Transaction {
     private Client client;
     private Car car;
     private String transactionInfo;
+    private String[] transactionsDB = new String[30];
+    private Car soldCars[] = new Car[30];
 
     Transaction() {
         transactionID = "-";
@@ -21,16 +23,40 @@ public class Transaction {
         transactionInfo = null;
     }
 
-    Transaction (String transactionID, String transactionDate, Car car, Client client) {
+    Transaction(String transactionID, String transactionDate, Car car, Client client) {
         this.transactionID = transactionID;
         this.transactionDate = transactionDate;
         this.car = car;
         this.client = client;
-        transactionInfo = "ID: " + this.transactionID + ", DATE: " + this.transactionDate + ", CLIENT FIRST NAME: " +
-                this.client.getFirstName() + ", CLIENT LAST NAME:" + this.client.getLastName() + ", CAR VIN:" +
-                this.car.getVinCode() + ", CAR MODEL: " + this.car.getModel() + ", PRICE: " + this.car.getPrice();
+
     }
 
-    // СОЗДАЙ ЗАПАСЫ АВТОМОБИЛЕЙ НА СКЛАДЕ!!!!! АУУУУ!!!!! НЕ ЗАБУДЬ!!!!
+    public void makeTransaction(Transaction tr) {
+        transactionInfo = "ID: " + tr.transactionID + ", DATE: " + tr.transactionDate + ", CLIENT FIRST NAME: " +
+                tr.client.getFirstName() + ", CLIENT LAST NAME: " + tr.client.getLastName() + ", CAR VIN: " +
+                tr.car.getVinCode() + ", CAR MODEL: " + tr.car.getModel() + ", PRICE: " + tr.car.getPrice();
 
+        for (int i = 0; i < transactionsDB.length; i++) {
+            if (transactionsDB[i] == null) {
+                transactionsDB[i] = transactionInfo;
+                break;
+            }
+        }
+
+        for (int i = 0; i < soldCars.length; i++) {
+            if (soldCars[i] == null) {
+                soldCars[i] = tr.car;
+                break;
+            }
+        }
+
+    }
+
+    public void printAllTransactions() {
+        for (int i = 0; i < transactionsDB.length; i++) {
+            if (transactionsDB[i] != null) {
+                System.out.println(transactionsDB[i]);
+            }
+        }
+    }
 }

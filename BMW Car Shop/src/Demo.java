@@ -5,24 +5,46 @@ public class Demo {
 
     public static void main(String[] args) {
 
-        ClientsDB cdb = new ClientsDB();
-        cdb.fillDbWithTestClients();
+        Shop bmwShop = new Shop();
 
-        for (int i = 0; i < cdb.clientsDB.length; i ++) {
-            if (cdb.clientsDB[i] != null) {
-                System.out.println(cdb.clientsDB[i].getFirstName());
-            }
-        }
+        // Filling Shop DB with test data
+        bmwShop.fillShopWithTestData();
 
-        Client c8 = new Client(TilteBeforeClientName.Dr, "Nestor", "Mann", "21.08.1958", "079-69-24-23", "nm@mail.com", "male", true);
+        //Show all clients
+        System.out.println("=== Clients ===");
+        bmwShop.showAllClients();
 
-        cdb.addNewClientToDB(c8);
+        // Add new client
+        Client c = new Client(TilteBeforeClientName.Dr, "Nestor", "Mann", "21.08.1958", "079-69-24-23", "nm@mail.com", "male", true);
+        bmwShop.addNewClient(c);
 
-        for (int i = 0; i < cdb.clientsDB.length; i ++) {
-            if (cdb.clientsDB[i] != null) {
-                System.out.println(cdb.clientsDB[i].getFirstName());
-            }
-        }
+        //Show all clients after adding new client
+        System.out.println("=== Clients after adding new client ===");
+        bmwShop.showAllClients();
+
+        //Show warehouse
+        System.out.println("=== BMW Shop Warehouse ===");
+        bmwShop.showWarehouse();
+
+        //Add new car to warehouse
+        Car car = new Car("KJH6993GH", CarModel.X3, CarColor.ORION_SILVER, EngineType.DIESEL, 3.0, BodyType.SUV, 61000);
+        bmwShop.addNewCarToWarehouse(car);
+
+        //Show warehouse
+        System.out.println("=== BMW Shop Warehouse after adding new car ===");
+        bmwShop.showWarehouse();
+
+        //Buy car
+        System.out.println("=== Buy car ===");
+        bmwShop.bayCar("KJF8843HH", "Elizabeth", "Koh", "04.11.2015");
+
+        //Show bought cars
+        System.out.println("=== Bought cars ===");
+        bmwShop.showAllOperations();
+
+        //Show warehouse after purchase
+        System.out.println("=== BMW Shop Warehouse ===");
+        bmwShop.showWarehouse();
 
     }
 }

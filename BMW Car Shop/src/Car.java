@@ -6,12 +6,9 @@ public class Car {
     private CarModel model;
     private CarColor color;
     private EngineType engineType;
-    private WheelSize wheelSize;
     private BodyType bodyType;
     private String vinCode;
     private double engineSize;
-    private double fuelConsumption;
-    private double weight;
     private double price;
 
     Car () {
@@ -19,14 +16,21 @@ public class Car {
         model = CarModel.UNKNOWN;
         color = CarColor.UNKNOWN;
         engineType = EngineType.UNKNOWN;
-        wheelSize = WheelSize.UNKNOWN;
         bodyType = BodyType.UNKNOWN;
         vinCode = "_";
         engineSize = 0;
-        fuelConsumption = 0;
-        weight = 0;
         price = 0;
+    }
 
+    Car (String vinCode, CarModel model, CarColor color, EngineType engineType, double engineSize, BodyType bodyType, double price) {
+
+        this.model = model;
+        this.color = color;
+        this.engineType = engineType;
+        this.bodyType = bodyType;
+        this.vinCode = vinCode;
+        this.engineSize = engineSize;
+        this.price = price;
 
     }
 
@@ -54,14 +58,6 @@ public class Car {
         this.engineType = engineType;
     }
 
-    public WheelSize getWheelSize() {
-        return wheelSize;
-    }
-
-    public void setWheelSize(WheelSize wheelSize) {
-        this.wheelSize = wheelSize;
-    }
-
     public BodyType getBodyType() {
         return bodyType;
     }
@@ -84,22 +80,6 @@ public class Car {
 
     public void setEngineSize(double engineSize) {
         this.engineSize = engineSize;
-    }
-
-    public double getFuelConsumption() {
-        return fuelConsumption;
-    }
-
-    public void setFuelConsumption(double fuelConsumption) {
-        this.fuelConsumption = fuelConsumption;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 
     public double getPrice() {

@@ -6,7 +6,7 @@ public class ClientsDB {
     // TilteBeforeClientName personTitle, String firstName, String lastName, String birthDate, String telNumber,
     // String eMail, boolean isVIP
 
-    Client clientsDB [] = new Client[30];
+    private Client clientsDB[] = new Client[30];
 
     // Test data
 
@@ -16,7 +16,7 @@ public class ClientsDB {
     private Client c3 = new Client(TilteBeforeClientName.Sen, "Albert", "Tap", "07.07.1977", "077-77-77-33", "at@mailx.com", "male", true);
     private Client c4 = new Client(TilteBeforeClientName.Dr, "Elizabeth", "Koh", "23.11.1957", "077-99-00-31", "eh@mailx.com", "female", true);
 
-    public void fillDbWithTestClients () {
+    public void fillDbWithTestClients() {
         clientsDB[0] = c0;
         clientsDB[1] = c1;
         clientsDB[2] = c2;
@@ -30,6 +30,14 @@ public class ClientsDB {
             if (clientsDB[i] == null) {
                 clientsDB[i] = c;
                 break;
+            }
+        }
+    }
+
+    public void showClients() {
+        for (int i = 0; i < clientsDB.length; i++) {
+            if (clientsDB[i] != null) {
+                System.out.println(clientsDB[i].getFirstName() + " " + clientsDB[i].getLastName());
             }
         }
     }
